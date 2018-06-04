@@ -1,0 +1,24 @@
+{
+  "name": "starcrafthub-be",
+  "version": "1.0.0",
+  "description": "schub的后端（星际争霸2游戏的一个小站）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZhangMingZhao1/StarCraftHub-BE.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZhangMingZhao1/StarCraftHub-BE/issues"
+  },
+  "homepage": "https://github.com/ZhangMingZhao1/StarCraftHub-BE#readme",
+  "dependencies": {
+    "express": "^4.16.3",
+    "express-session": "^1.15.6",
+    "formidable": "^1.2.1"
+  }
+}
