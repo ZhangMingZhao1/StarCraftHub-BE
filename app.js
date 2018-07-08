@@ -37,6 +37,6 @@ app.use(express.static("./uploads"));
 // });
 
 app.post("/upload",router.doPost);
-
+app.get("/getat",router.doGetAT);
 
 app.listen(3000);
