@@ -87,6 +87,7 @@ exports.doGetAT = function(req,res) {
             // console.log(item.type);
           });
         //   res.send("成功");
+          res.setHeader("Access-Control-Allow-Origin", "*"); 
           res.json(items);
         } else {
           console.log(respInfo.statusCode);
