@@ -5,6 +5,7 @@ var fs = require("fs");
 var sd = require("silly-datetime");
 var qiniu =require("qiniu");
 var se = require("../se.json")
+var axios = require("axios");
 //上传表单
 exports.doPost = function (req,res) {
   var form = new formidable.IncomingForm();
@@ -96,3 +97,21 @@ exports.doGetAT = function(req,res) {
         }
       });
 }
+
+exports.dogetranklist = function(req, res) {
+  let url = "https://wcs.starcraft2.com/en-us/search/standings?year=2017&circuit=korea&page=0&number=30";
+  axios.get(url,{
+    headers: {
+      referer: "https://wcs.starcraft2.com/en-us/standings/",
+      host: "wcs.starcraft2.com"
+    }
+  }).then(response => {
+    res.setHeader("Access-Control-Allow-Origin", "*"); 
+    res.json(response.data)  
+    console.log("请求成功");
+  }).catch((e)=> {
+    console.log("error",e);
+  });
+}
+
+

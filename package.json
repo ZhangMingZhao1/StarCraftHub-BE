@@ -4,7 +4,8 @@
   "description": "schub的后端（星际争霸2游戏的一个小站）",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./app.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,7 @@
   "homepage": "https://github.com/ZhangMingZhao1/StarCraftHub-BE#readme",
   "dependencies": {
     "ali-oss": "^5.3.0",
+    "axios": "^0.18.0",
     "connect-multiparty": "^2.1.0",
     "express": "^4.16.3",
     "express-session": "^1.15.6",

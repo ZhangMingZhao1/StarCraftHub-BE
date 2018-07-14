@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var multipart = require('connect-multiparty');
-var router = express.Router();
+// var router = express.Router();
 
 var app = express();
 var router = require("./router/router.js");
@@ -38,5 +38,6 @@ app.use(express.static("./uploads"));
 
 app.post("/upload",router.doPost);
 app.get("/getat",router.doGetAT);
+app.get("/getranklist",router.dogetranklist);
 
-app.listen(3000);
+app.listen(3002); 
