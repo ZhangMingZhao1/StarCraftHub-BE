@@ -35,9 +35,23 @@ app.use(express.static("./uploads"));
 //   //响应ajax请求，告诉它图片传到哪了
 //   res.json({ code: 200, data: { url: 'http://' + req.headers.host + '/public/uploads/' + filename } });
 // });
-
-app.post("/upload",router.doPost);
+app.all('/*', (req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', req.headers && req.headers.origin ? req.headers.origin : '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Connection, User-Agent, Cookie, Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  //post请求之前，会发送一个options的跨域请求
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next()
+  }
+})
+app.post("/upload",router.doUpload);
 app.get("/getat",router.doGetAT);
 app.get("/getranklist",router.dogetranklist);
+app.get("/getPostList",router.dogetPostList);
+app.post("/post",router.doPost);
+app.post("/register",router.doRegister);
 
 app.listen(3002); 

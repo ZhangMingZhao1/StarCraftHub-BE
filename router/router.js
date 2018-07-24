@@ -6,15 +6,17 @@ var sd = require("silly-datetime");
 var qiniu =require("qiniu");
 var se = require("../se.json")
 var axios = require("axios");
+const moment = require('moment');
+const db = require("../models/models.js");
 //上传表单
-exports.doPost = function (req,res) {
+exports.doUpload = function (req,res) {
   var form = new formidable.IncomingForm();
 
       // "../"返回上一级
   form.uploadDir = path.normalize(__dirname + "/../tempup/");
   form.parse(req, function (err, fields, files,next) {
-      console.log('fields',fields);
-      console.log('files',files);
+      // console.log('fields',fields);
+      // console.log('files',files);
       //改名
       if(err) {
           next(); //这个中间件不受理这个请求了，往下走
@@ -112,6 +114,65 @@ exports.dogetranklist = function(req, res) {
   }).catch((e)=> {
     console.log("error",e);
   });
+}
+
+exports.dogetPostList = function(req,res) {
+  db.find("postlists",{},function(err,result) {
+    if(err) {
+      res.json({"OK":1});
+    }
+    res.json(result);
+  })
+}
+
+exports.doPost = function(req,res) {
+  var form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    //得到表单之后做的事情
+    var content = fields.content;
+    
+    //现在可以证明，用户名没有被占用
+    db.insertOne("posts", {
+        "username": username,
+        "datetime": new Date(),
+        "content": content
+    }, function (err, result) {
+
+        // console.log(result);
+        if (err) {
+            res.send("-3"); //服务器错误
+            console.log("错误");
+            return;
+        }
+        res.send("1");
+    })
+  })
+}
+
+exports.doRegister = function(req,res) {
+  console.log("doRegister")
+  let form = new formidable.IncomingForm();
+  form.parse(req, function (err, fields, files) {
+    //得到表单之后做的事情
+    let username = fields.username;
+    let password = fields.password;
+    //现在可以证明，用户名没有被占用
+    db.insertOne("users", {
+        "username": username,
+        "password": password,
+        "registerDate": new Date()
+    }, function (err, result) {
+
+        // console.log(result);
+        if (err) {
+            res.send("500"); //服务器错误
+            console.log("插入错误");
+            return;
+        }
+        // console.log(result);
+        res.send("200");
+    })
+  })
 }
 
 
