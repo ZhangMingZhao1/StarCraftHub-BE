@@ -2,6 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var multipart = require('connect-multiparty');
+var session = require("express-session");
 // var router = express.Router();
 
 var app = express();
@@ -9,6 +10,12 @@ var router = require("./router/router.js");
 
 app.use(express.static("./public"));
 app.use(express.static("./uploads"));
+// 使用session
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}))
 // app.post('/upload',function(req,res) {
 //   console.log(req,res);
 //   res.send(200);
@@ -53,5 +60,8 @@ app.get("/getranklist",router.dogetranklist);
 app.get("/getPostList",router.dogetPostList);
 app.post("/post",router.doPost);
 app.post("/register",router.doRegister);
+app.post("/login",router.doLogin);
+
+
 
 app.listen(3002); 

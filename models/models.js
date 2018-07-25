@@ -64,12 +64,13 @@ exports.find = function (collectionName,json,C,D) {
   //从第零页开始
   // console.log("略过了"+skipnumber+"条"+"限制在"+limit+"条");
   //链接数据库，链接之后查找所有
-  _connectDB(function (err,db) {
+  _connectDB(function (err,client) {
+      const db = client.db("schub");
       var cursor = db.collection(collectionName).find(json).skip(skipnumber).limit(limit).sort(sort);
       cursor.each(function (err, doc) {
           if(err) {
               callback(err,null);
-              db.close();
+              client.close();
               return;
           }
          if(doc != null) {
@@ -77,7 +78,7 @@ exports.find = function (collectionName,json,C,D) {
          }else {
              //遍历结束，没有更多的文档
               callback(null,result);
-             db.close();//关闭数据库
+              client.close();//关闭数据库
          }
       });
   });
