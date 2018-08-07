@@ -5,7 +5,7 @@ var fs = require("fs");
 var sd = require("silly-datetime");
 var qiniu =require("qiniu");
 var se = require("../se.json")
-var axios = require("axios");
+var axios = require("axios"); 
 const moment = require('moment');
 const db = require("../models/models.js");
 //上传表单
@@ -129,8 +129,12 @@ exports.doPost = function(req,res) {
   var form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
     //得到表单之后做的事情
-    var content = fields.content;
-    
+    let content = fields.content;
+    console.log('2',req.session.id)
+    console.log(2,req.sessionID)
+    console.log(req.session);
+    // console.log('req.sessionStore',req.sessionStore);
+    let username = req.session.username; 
     //现在可以证明，用户名没有被占用
     db.insertOne("posts", {
         "username": username,
@@ -201,6 +205,10 @@ exports.doLogin = function(req,res) {
       //有的话，进一步看看这个人的密码是否匹配
       req.session.username = username;
       req.session.login = "1";
+      // req.session.save();
+      console.log(req.session);
+      console.log('1',req.session.id);
+      console.log(1,req.sessionID)
       // console.log(req.session);
       if (password == result[0].password) {
           res.send("1"); //登陆成功
