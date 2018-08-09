@@ -117,7 +117,7 @@ exports.dogetranklist = function(req, res) {
 }
 
 exports.dogetPostList = function(req,res) {
-  db.find("postlists",{},function(err,result) {
+  db.find("posts",{},function(err,result) {
     if(err) {
       res.json({"OK":1});
     }

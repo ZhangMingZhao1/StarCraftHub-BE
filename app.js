@@ -33,7 +33,7 @@ app.all('/*', (req, res, next) => {
 app.post("/upload",router.doUpload);
 app.get("/getat",router.doGetAT);
 app.get("/getranklist",router.dogetranklist);
-app.get("/getPostList",router.dogetPostList);
+app.get("/getpostlist",router.dogetPostList);
 app.post("/post",router.doPost);
 app.post("/register",router.doRegister);
 app.post("/login",router.doLogin);
